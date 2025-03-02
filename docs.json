@@ -66,10 +66,9 @@
         "href": "mailto:hi@michelangelo.land"
       }
     ],
-    "primary": {
+    "dark": {
       "type": "button",
       "label": "Sign In",
-      "color-text": "black"
       "href": "https://code.michelangelo.land/sign-in"
     }
   },
