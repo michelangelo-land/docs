@@ -65,12 +65,11 @@
         "label": "Support",
         "href": "mailto:hi@michelangelo.land"
       }
-    ],
-    "dark": {
-      "type": "button",
-      "label": "Sign In",
-      "href": "https://code.michelangelo.land/sign-in"
-    }
+      {
+        "label": "Sign In",
+        "href": "https://code.michelangelo.land/sign-in"
+      }
+    ]
   },
   "footer": {
     "socials": {
