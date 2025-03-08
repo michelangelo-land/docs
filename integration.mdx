@@ -1,9 +1,109 @@
 ---
 title: "Integration"
-description: "Learn about supported APIs and GitHub integration."
+description: "In this section, we will explore the integrations available on michelangelo.land, focusing on the supported APIs and the integration with GitHub."
 mode: "wide"
 ---
 
-## Product Features
+## What is an API?
 
-michelangelo.land
+API (An Application Programming Interface) is a set of rules and protocols that allows different software applications to communicate with each other. APIs facilitate the integration of external functionality, allowing developers to incorporate third-party services or data into their applications without having to develop that functionality from scratch.
+
+## GitHub Integration
+
+michelangelo.land offers a solid integration with GitHub <Icon icon="github" size={20} iconType="regular" color="#7c7c7c" />, allowing developers to synchronize their projects with GitHub repositories. This integration facilitates source code management, team collaboration, and version control. For a detailed guide on how to set up the GitHub integration, see the <a href="https://docs.michelangelo.land/quickstart#step-5-save-and-version-the-project-on-github">GitHub Integration</a> section.
+
+## Supported Integrations
+
+michelangelo.land supports a wide range of APIs and libraries to extend the functionality of the applications developed.
+These integrations are divided into two main categories:
+
+* ### Verified Integrations
+
+  Verified Integrations are those that we have tested and guaranteed to work perfectly within the michelangelo.land environment. These are mainly libraries that start with the 'expo-' prefix and are compatible with Expo Go.
+
+<CardGroup cols={1}>
+  <Card title="expo-media-library" href="https://docs.expo.dev/versions/latest/sdk/media-library/">
+    Provides access to user's media library.
+  </Card>
+
+  <Card title="expo-build-properties" href="https://docs.expo.dev/versions/latest/sdk/build-properties/">
+    Config plugin to customize native build properties on prebuild
+  </Card>
+
+  <Card title="expo-dev-client" href="https://docs.expo.dev/versions/latest/sdk/dev-client/">
+    Expo Development Client
+  </Card>
+
+  <Card title="expo-json-utils" href="https://github.com/expo/expo/tree/main/packages/expo-json-utils">
+    Utilities for reading JSONObjects (Android) and NSDictionaries (iOS).
+  </Card>
+
+  <Card title="expo-structured-headers" href="https://github.com/expo/expo/tree/main/packages/expo-structured-headers">
+    Expo module implementation of a parser based on [https://httpwg.org/specs/rfc8941.html](https://httpwg.org/specs/rfc8941.html)
+  </Card>
+
+  <Card title="expo-manifests" href="https://docs.expo.dev/versions/latest/sdk/manifests/">
+    Code to parse and use Expo and Expo Updates manifests.
+  </Card>
+
+  <Card title="expo-symbols" href="https://docs.expo.dev/versions/latest/sdk/symbols/">
+    Provides access to the SF Symbols library on iOS for React Native and Expo apps.
+  </Card>
+
+  <Card title="expo-navigation-bar" href="https://docs.expo.dev/versions/latest/sdk/navigation-bar/">
+    Modify and observe the native navigation bar on Android devices.
+  </Card>
+
+  <Card title="expo-clipboard" href="https://docs.expo.dev/versions/latest/sdk/clipboard/">
+    Provides an interface for getting and setting Clipboard content on Android, iOS and Web.
+  </Card>
+
+  <Card title="expo-tracking-transparency" href="https://docs.expo.dev/versions/latest/sdk/tracking-transparency/">
+    An Expo library for requesting permission to track the users on devices using iOS 14.5 and higher.
+  </Card>
+
+  <Card title="expo-image" href="https://docs.expo.dev/versions/latest/sdk/image/">
+    A cross-platform, performant image component for React Native and Expo with Web support.
+  </Card>
+
+  <Card title="expo-system-ui" href="https://docs.expo.dev/versions/latest/sdk/system-ui/">
+    Interact with system UI elements.
+  </Card>
+
+  <Card title="expo-router" href="https://docs.expo.dev/router/introduction/">
+    Expo Router is a file-based router for React Native and web applications.
+  </Card>
+
+  <Card title="expo-status-bar" href="https://docs.expo.dev/versions/latest/sdk/status-bar/">
+    Provides the same interface as the React Native StatusBar API, but with slightly different defaults to work great in Expo environments.
+  </Card>
+
+  <Card title="expo-screen-capture" href="https://docs.expo.dev/versions/latest/sdk/screen-capture/">
+    Protects screens in your app from being captured or recorded, and notifies if a screenshot is taken.
+  </Card>
+
+  <Card title="expo-sharing" href="https://docs.expo.dev/versions/latest/sdk/sharing/">
+    Provides a way to share files directly with other compatible applications.
+  </Card>
+
+  <Card title="expo-screen-orientation" href="https://docs.expo.dev/versions/latest/sdk/screen-orientation/">
+    Expo universal module for managing device's screen orientation
+  </Card>
+
+  <Card title="..." />
+</CardGroup>
+
+* ### Unverified Integrations
+
+  Unverified Integrations include all those libraries and APIs that are compatible with Expo Go, but have not yet been thoroughly tested within michelangelo.land.
+  These integrations may work correctly, but they may also present limitations or unexpected behavior.If you want to use one of these libraries:
+
+  * Check compatibility by reading the library's official documentation.
+
+  * Test the integration directly in michelangelo.land to make sure it works properly.
+
+  * Share feedback: if a library proves stable, we may consider it for the list of verified integrations.
+
+<CardGroup cols={1}>
+  <Card title="..." />
+</CardGroup>
