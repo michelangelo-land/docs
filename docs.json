@@ -21,14 +21,12 @@
             ]
           },
           {
-            "group": "Essentials",
+            "group": "User Guides",
             "pages": [
-              "essentials/markdown",
-              "essentials/code",
-              "essentials/images",
-              "essentials/settings",
-              "essentials/navigation",
-              "essentials/reusable-snippets"
+              "/quickstart",
+              "/integration",
+              "/prompt-engineering",
+              "/quickstart#step-6-application-deployment",
             ]
           }
         ]
