@@ -25,8 +25,7 @@
             "pages": [
               "/quickstart",
               "/integration",
-              "/prompt-engineering",
-              "/quickstart#step-6-application-deployment"
+              "/prompt-engineering"
             ]
           }
         ]
