@@ -1,37 +1,67 @@
-# Mintlify Starter Kit
+# michelangelo.land Documentation
 
-Click on `Use this template` to copy the Mintlify starter kit. The starter kit contains examples including
+Welcome to the official documentation for michelangelo.land - an innovative platform for developing full-stack hybrid applications using AI and Expo.
 
-* Guide pages
+## Features
 
-* Navigation
+- 🚀 **Code Generation** - Create React Native code with Expo
+- 📝 **Built-in Code Editor** - Edit code directly in the platform
+- ✨ **Best Practices** - Generate code following industry standards
+- 📱 **Live Preview** - Instant app viewing on mobile devices
+- 🚀 **Easy Deployment** - Quick and simple app distribution
+- 🔄 **GitHub Integration** - Seamless connection with GitHub repositories
 
-* Customizations
+## Getting Started
 
-* API Reference pages
+### Prerequisites
 
-* Use of popular components
+- An michelangelo.land account for development applications
+- An Expo account for building and deploying applications
+- GitHub account (optional, for repository integration)
 
 ### Development
 
-Install the [Mintlify CLI](https://www.npmjs.com/package/mintlify) to preview the documentation changes locally. To install, use the following command
+1. Visit [code.michelangelo.land](https://code.michelangelo.land/sign-in) to get started
+2. Sign in using GitHub or email
+3. Create your first project or access existing ones
+4. Use the development interface to:
+   - Write development prompts
+   - Generate and modify code
+   - Preview your app via QR code
+   - Access the project structure
 
-```
-npm i -g mintlify
-```
+### Mobile Preview
 
-Run the following command at the root of your documentation (where docs.json is)
+1. Download the Expo Go app on your mobile device
+2. Scan the QR code from the Guide section
+3. View your app in real-time on your device
 
-```
-mintlify dev
-```
+### Deployment
 
-### Publishing Changes
+1. Create an [Expo account](https://expo.dev/signup)
+2. Set up a new project in the Expo Dashboard
+3. Use the build feature in michelangelo.land
+4. Follow the deployment process for iOS (TestFlight) or Android (Play Store)
 
-Install our Github App to auto propagate changes from your repo to your deployment. Changes will be deployed to production automatically after pushing to the default branch. Find the link to install on your dashboard.
+## Support
 
-#### Troubleshooting
+- Join our [Discord Community](https://discord.gg/n6XjnCZec2)
+- Report issues through Discord
+- Enterprise users get priority support
+- Email support: hi@michelangelo.land
 
-* Mintlify dev isn't running - Run `mintlify install` it'll re-install dependencies.
+## Stay Connected
 
-* Page loads as a 404 - Make sure you are running in a folder with `docs.json`
+- [Website](https://michelangelo.land)
+- [Discord](https://discord.gg/n6XjnCZec2)
+- [Twitter](https://x.com/m_sculpt_land)
+- [GitHub](https://github.com/michelangelo-land)
+- [LinkedIn](https://www.linkedin.com/company/michelangelo-land)
+
+## Documentation
+
+For detailed documentation, visit our [Documentation Site](https://docs.michelangelo.land/introduction).
+
+## License
+
+[Add your license information here]
