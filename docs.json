@@ -9,25 +9,19 @@
   },
   "favicon": "favicon.svg",
   "navigation": {
-    "tabs": [
+    "groups": [
       {
-        "tab": "Guides",
-        "groups": [
-          {
-            "group": "Introduction",
-            "pages": [
-              "introduction",
-              "quickstart"
-            ]
-          },
-          {
-            "group": "User Guides",
-            "pages": [
-              "/quickstart",
-              "/integration",
-              "/prompt-engineering"
-            ]
-          }
+        "group": "Introduction",
+        "pages": [
+          "/introduction"
+        ]
+      },
+      {
+        "group": "User Guides",
+        "pages": [
+          "/user-guides/quickstart",
+          "/user-guides/integration",
+          "/user-guides/prompt-engineering"
         ]
       }
     ],
@@ -39,21 +33,31 @@
           "icon": "book-open"
         },
         {
+          "anchor": "Start",
+          "href": "https://code.michelangelo.land/sign-in",
+          "icon": "rocket-launch"
+        },
+        {
           "anchor": "Community",
-          "href": "https://discord.gg/MybzrMgw",
+          "href": "https://discord.gg/n6XjnCZec2",
           "icon": "user-group"
         },
         {
           "anchor": "Change Log",
-          "href": "https://discord.gg/s8URJSnw",
+          "href": "https://discord.gg/n6XjnCZec2",
           "icon": "bolt"
+        },
+        {
+          "anchor": "Website",
+          "href": "https://michelangelo.land",
+          "icon": "globe"
         }
       ]
     }
   },
   "logo": {
-    "light": "light.svg",
-    "dark": "dark.svg"
+    "light": "/images/light.svg",
+    "dark": "/images/dark.svg"
   },
   "navbar": {
     "links": [
@@ -69,6 +73,7 @@
   },
   "footer": {
     "socials": {
+      "discord": "https://discord.gg/n6XjnCZec2",
       "x": "https://x.com/m_sculpt_land",
       "github": "https://github.com/michelangelo-land",
       "linkedin": "https://www.linkedin.com/company/michelangelo-land"
