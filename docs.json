@@ -34,7 +34,7 @@
         },
         {
           "anchor": "Start",
-          "href": "https://code.michelangelo.land/sign-in",
+          "href": "https://michelangelo.land/sign-in",
           "icon": "rocket-launch"
         },
         {
@@ -67,7 +67,7 @@
       },
       {
         "label": "Sign In",
-        "href": "https://code.michelangelo.land/sign-in"
+        "href": "https://michelangelo.land/sign-in"
       }
     ]
   },
