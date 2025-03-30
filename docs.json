@@ -21,7 +21,8 @@
         "pages": [
           "/user-guides/quickstart",
           "/user-guides/integration",
-          "/user-guides/prompt-engineering"
+          "/user-guides/prompt-engineering",
+          "/user-guides/mcp-modelcontextprotocol"
         ]
       }
     ],
