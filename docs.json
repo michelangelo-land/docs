@@ -21,8 +21,7 @@
         "pages": [
           "/user-guides/quickstart",
           "/user-guides/integration",
-          "/user-guides/prompt-engineering",
-          "/user-guides/mcp-modelcontextprotocol"
+          "/user-guides/prompt-engineering"
         ]
       }
     ],
@@ -40,12 +39,12 @@
         },
         {
           "anchor": "Community",
-          "href": "https://discord.gg/n6XjnCZec2",
+          "href": "https://discord.gg/RJDhCzA7Hv",
           "icon": "user-group"
         },
         {
           "anchor": "Change Log",
-          "href": "https://discord.gg/n6XjnCZec2",
+          "href": "https://discord.gg/RJDhCzA7Hv",
           "icon": "bolt"
         },
         {
@@ -74,8 +73,8 @@
   },
   "footer": {
     "socials": {
-      "discord": "https://discord.gg/n6XjnCZec2",
-      "x": "https://x.com/m_sculpt_land",
+      "discord": "https://discord.gg/RJDhCzA7Hv",
+      "x": "https://x.com/michelangelo_m",
       "github": "https://github.com/michelangelo-land",
       "linkedin": "https://www.linkedin.com/company/michelangelo-land"
     }
