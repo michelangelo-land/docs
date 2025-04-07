@@ -40,7 +40,7 @@ Welcome to the official documentation for michelangelo.land - an innovative plat
 
 1. Create an [Expo account](https://expo.dev/signup)
 2. Set up a new project in the Expo Dashboard
-3. Use the build feature in michelangelo.land
+3. Use the deploy feature in michelangelo.land
 4. Follow the deployment process for iOS (TestFlight) or Android (Play Store)
 
 ## Support

@@ -74,36 +74,56 @@ Each section will make the steps easier to understand.
 
     You can also **download your app code** directly via the download icon button <Icon icon="arrow-down-to-line" iconType="regular" color="#7c7c7c" size="20" />.
   </Accordion>
-  <Accordion title="Step 6: Build your App" icon="share">
-    With Michelangelo.land, you can easily create the Build of your project and publish it by following a few steps.
-    1. **Expo account**:<br /> 
-        to start the build, you need an Expo account, where the project will be uploaded.
-        If you don't have an account yet, create one here: <a href="https://expo.dev/signup">create an Expo account</a>, or <a href="https://expo.dev/login">log in</a> to your existing account.
+  <Accordion title="Step 6: Deploy your App" icon="share">
+    With Michelangelo.land you can easily distribute your app by following a few steps. The Deploy process allows you to publish your application on **TestFlight (iOS)** and **Google Play (Android)**.
+    1. **Expo and Stores account**:<br /> 
+       - to get started, make sure you have an Expo account. If you don't have one, you can create one here: <a href="https://expo.dev/signup">create an Expo account</a>, or <a href="https://expo.dev/login">log in</a> to your existing account.
+       - In addition, to distribute your app on TestFlight (iOS) or Google Play (Android), you'll also need the corresponding **developer accounts for each store**. <br />
+         You can find all the details on how to set them up in Expo’s official guide: <a href="https://docs.expo.dev/build/setup/#build-for-app-stores">Build for app stores – Expo Docs</a>
       
     2. **Project on Expo**:<br />
-    after logging in to Expo, you will need to **create a new project** in the Expo Dashboard. This step is essential to build the project developed on Michelangelo.land.
-    
-    3. **Build on Michelangelo.land**:<br /> 
+    after logging in to Expo, access the Expo Dashboard and **create a new project**. You will need this to connect Michelangelo.land to your Expo environment and start the Deploy.
+
+    3. **Deploy from Michelangelo.land**:<br /> 
       inside your project on <a href="https://michelangelo.land">Michelangelo.land</a>:
-        - <Icon icon="hammer" iconType="regular" color="#7c7c7c" size="20" /> Click the button with the hammer icon.
-        - <Icon icon="pen-field" iconType="regular" color="#7c7c7c" size="20" /> A pop-up will appear where you can enter the details of your Expo account and the project you created. Below are the required fields with example values:<br />
-          `ID: "3b2a9f88-7d4e-49a5-92c7-a1b23c45d678"`<br />
-          `Owner: "my-michelangelo-app"`<br />
-          `Slug: "michelangeloproject"`<br />
-          `packageName: "com.my-michelangelo-app"`<br />
-          `bundleIdentifier: "com.my-michelangelo-app"`<br />
-          `Token: "zxywvu9876543210abcdefghijklmnopqrstuv"`<br />
-        - After filling in the required fields, click on the 'Build Project' button.
-    4. **Build Status**:<br />
-      After starting, the Build will have three states:
-        - <Icon icon="clock" iconType="light" color="#fc9020" size="20" /> _In Queue_
-        - <Icon icon="spinner" iconType="regular" color="#1b87d9" size="20" /> _In Progress_
-        - <Icon icon="check" iconType="regular" color="#4bb61c" size="20" /> _Success_ (successfully completed) or <Icon icon="xmark" iconType="regular" color="#e20b0b" size="20" /> _Failed_ (error during the Build).<br />
-          If the Build fails, you can contact <a href="https://docs.michelangelo.land/introduction#support">Michelangelo.land support</a> for assistance.
-    5. **Completed Build**:<br />
-      When the Build completes successfully, you will receive a direct <a>link to the Build</a> in your Expo account or log in to your Expo account. Here you can:
-        - **Check the status of the Build** (if it was successful, if it is still in progress or if it failed).
-        - **Distribute your app** to TestFlight (iOS) or Play Store (Android).
+        - <Icon icon="rocket-launch" iconType="regular" color="#7c7c7c" size="20" /> Click on the ‘**Deploy**‘ button (with the rocket icon).
+        - <Icon icon="pen-field" iconType="regular" color="#7c7c7c" size="20" /> A popup will open, divided into **4 steps** (the values ​​of the fields below are for example):<br />
+           1. Enter:<br />
+               • `App Name` (your app name)<br />
+               • `App Icon` (your app icon)<br />
+               Click ‘Next‘
+          2. Enter the Expo project data:<br />
+              `ID: "3b2a9f88-7d4e-49a5-92c7-a1b23c45d678"`<br />
+              `Owner: "my-michelangelo-app"`<br />
+              `Slug: "michelangeloproject"`<br />
+              (These data are visible in the Expo Dashboard)<br />
+              Click ‘Next‘
+           3. Enter your Expo Access Token:<br />
+              `Token: "zxywvu9876543210abcdefghijklmnopqrstuv"`<br />
+              (Always recoverable from the Expo project Dashboard)<br />
+              Click ‘Next‘
+           4. Fill in the Store fields according to your needs:<br />
+              `iOS Bundle Identifier: "1234567890"` (from TestFlight)<br />
+              `Apple App Store Connect App ID: "123456789"` (from Apple App Store Connect)<br />
+              `Android Package Name: "ex.com.myapp"` (from Google Play Console)<br />
+          
+        - After filling in the required fields, click on the ‘**Submit**‘ button.
+    4. **Deployment Status**:<br />
+      After submitting your data:
+        - You will see a message with <Icon icon="rocket-launch" iconType="light" color="#fc9020" size="20" /> icon: <br />
+           **"Your app is preparing for launch..."**
+        - The Deploy button will show a dynamic status:<br />
+           <Icon icon="clock" iconType="light" color="#fc9020" size="20" /> _Queue_ <br />
+           <Icon icon="spinner" iconType="regular" color="#1b87d9" size="20" /> _In Progress_ <br />
+           <Icon icon="check" iconType="regular" color="#4bb61c" size="20" /> _Deploy_ (green border) or <Icon icon="xmark" iconType="regular" color="#e20b0b" size="20" /> _Failed_ (red border).<br />
+          
+          In case of error (**_Failed_**), you can **repeat the procedure** by clicking the ‘Deploy‘ button again. The previous data will have to be re-entered for greater security.<br />
+          Also, you can contact <a href="https://docs.michelangelo.land/introduction#support">Michelangelo.land support</a> for assistance.
+    5. **Distributed App**:<br />
+        When the status is **_Deploy_** (green border), the Deployment will be completed successfully:
+        - in the popup (by clicking on ‘Deploy‘ (green border)) you will find a **direct link to your Expo dashboard** where you can **view the status of your Build and Submit** (submitting the app to the stores).<br />
+        
+        Once all the processes have been successfully completed, **your app will be on TestFlight and Google Play**, ready to be shared.
   </Accordion>
   <Accordion title="Conclusion" icon="party-horn">
     You just created your application with Michelangelo.land! 🥳 Now you can continue to modify, improve and distribute it easily.
