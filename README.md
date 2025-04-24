@@ -54,7 +54,7 @@ Welcome to the official documentation for michelangelo.land - an innovative plat
 
 - [Website](https://michelangelo.land)
 - [Discord](https://discord.gg/n6XjnCZec2)
-- [Twitter](https://x.com/m_sculpt_land)
+- [Twitter](https://x.com/michelangelo_m)
 - [GitHub](https://github.com/michelangelo-land)
 - [LinkedIn](https://www.linkedin.com/company/michelangelo-land)
 
