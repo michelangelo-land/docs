@@ -17,11 +17,28 @@
         ]
       },
       {
-        "group": "User Guides",
+        "group": "How to Build",
         "pages": [
-          "/user-guides/quickstart",
-          "/user-guides/integration",
-          "/user-guides/prompt-engineering"
+          "/how-to-build/quickstart",
+          "/how-to-build/integration",
+          "/how-to-build/prompt-engineering"
+        ]
+      },
+      {
+        "group": "Getting Started",
+        "pages": [
+          "/getting-started/sign-in-michelangeloLand",
+          "/getting-started/create-project",
+          "/getting-started/view-app",
+          "/getting-started/edit-code"
+        ]
+      },
+      {
+        "group": "Manage & Deploy",
+        "pages": [
+          "/manage-and-deploy/github-integration",
+          "/manage-and-deploy/share-preview",
+          "/manage-and-deploy/deploy-app"
         ]
       }
     ],
