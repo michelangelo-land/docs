@@ -40,6 +40,12 @@
           "/manage-and-deploy/share-preview",
           "/manage-and-deploy/deploy-app"
         ]
+      },
+      {
+        "group": "API",
+        "pages": [
+          "/api-call/your-api-call"
+        ]
       }
     ],
     "global": {
