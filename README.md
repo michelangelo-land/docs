@@ -48,7 +48,7 @@ Welcome to the official documentation for michelangelo.land - an innovative plat
 - Join our [Discord Community](https://discord.gg/n6XjnCZec2)
 - Report issues through Discord
 - Enterprise users get priority support
-- Email support: hi@michelangelo.land
+- Email support: sardo@michelangelo.land 
 
 ## Stay Connected
 
