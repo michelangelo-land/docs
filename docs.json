@@ -9,43 +9,116 @@
   },
   "favicon": "favicon.svg",
   "navigation": {
-    "groups": [
+    "versions": [
       {
-        "group": "Introduction",
-        "pages": [
-          "/introduction"
+        "version": "v2",
+        "default": true,
+        "groups": [
+          {
+            "group": "Introduction",
+            "pages": [
+              "/v2/introduction",
+              "/v2/imaginer/imaginer"
+            ]
+          },
+          {
+            "group": "Michelangelo App (iOS)",
+            "pages": [
+              "/v2/michelangelo-app/overview",
+              "/v2/michelangelo-app/getting-started",
+              "/v2/michelangelo-app/sign-in",
+              "/v2/michelangelo-app/create-project",
+              "/v2/michelangelo-app/view-app",
+              "/v2/michelangelo-app/github-integration",
+              "/v2/michelangelo-app/share-app",
+              "/v2/michelangelo-app/deploy-app",
+              "/v2/michelangelo-app/explore"
+            ]
+          },
+          {
+            "group": "Web Experience",
+            "pages": [
+              "/v2/michelangelo-web/overview",
+              "/v2/michelangelo-web/status",
+              "/v2/michelangelo-web/design-philosophy"
+            ]
+          },
+          {
+            "group": "Meta Glasses",
+            "pages": [
+              "/v2/michelangelo-meta-glasses/overview",
+              "/v2/michelangelo-meta-glasses/interaction-model",
+              "/v2/michelangelo-meta-glasses/vision"
+            ]
+          },
+          {
+            "group": "How to Build",
+            "pages": [
+              "/v2/how-to-build/vibe-coding-basics",
+              "/v2/how-to-build/prompt-engineering",
+              "/v2/how-to-build/tokens-and-limits"
+            ]
+          },
+          {
+            "group": "Integrations",
+            "pages": [
+              "/v2/integrations/github",
+              "/v2/integrations/supabase",
+              "/v2/integrations/expo",
+              "/v2/integrations/third-party"
+            ]
+          },
+          {
+            "group": "Support & Community",
+            "pages": [
+              "/v2/support/faq",
+              "/v2/support/contact",
+              "/v2/community/stay-connected"
+            ]
+          }
         ]
       },
       {
-        "group": "How to Build",
-        "pages": [
-          "/how-to-build/quickstart",
-          "/how-to-build/integration",
-          "/how-to-build/prompt-engineering"
-        ]
-      },
-      {
-        "group": "Getting Started",
-        "pages": [
-          "/getting-started/sign-in-michelangeloLand",
-          "/getting-started/create-project",
-          "/getting-started/view-app",
-          "/getting-started/edit-code",
-          "/getting-started/profile-settings"
-        ]
-      },
-      {
-        "group": "Manage & Deploy",
-        "pages": [
-          "/manage-and-deploy/github-integration",
-          "/manage-and-deploy/share-preview",
-          "/manage-and-deploy/deploy-app"
-        ]
-      },
-      {
-        "group": "API",
-        "pages": [
-          "/api-call/your-api-call"
+        "version": "v1",
+        "groups": [
+          {
+            "group": "Introduction",
+            "pages": [
+              "/v1/introduction"
+            ]
+          },
+          {
+            "group": "How to Build",
+            "pages": [
+              "/v1/how-to-build/quickstart",
+              "/v1/how-to-build/integration",
+              "/v1/how-to-build/prompt-engineering"
+            ]
+          },
+          {
+            "group": "Getting Started",
+            "pages": [
+              "/v1/getting-started/sign-in-michelangeloLand",
+              "/v1/getting-started/create-project",
+              "/v1/getting-started/view-app",
+              "/v1/getting-started/edit-code",
+              "/v1/getting-started/profile-settings"
+            ]
+          },
+          {
+            "group": "Manage & Deploy",
+            "pages": [
+              "/v1/manage-and-deploy/github-integration",
+              "/v1/manage-and-deploy/share-preview",
+              "/v1/manage-and-deploy/deploy-app"
+            ]
+          },
+          {
+            "group": "API",
+            "pages": [
+              "/v1/api-call/your-api-call"
+            ]
+          }
         ]
       }
     ],
@@ -53,12 +126,12 @@
       "anchors": [
         {
           "anchor": "Documentation",
-          "href": "https://docs.michelangelo.land/introduction",
+          "href": "https://docs.michelangelo.land/v2/introduction",
           "icon": "book-open"
         },
         {
           "anchor": "Start",
-          "href": "https://michelangelo.land/sign-in",
+          "href": "https://apps.apple.com/it/app/michelangelo-vibe-coding/id6744751580",
           "icon": "rocket-launch"
         },
         {
@@ -67,9 +140,9 @@
           "icon": "user-group"
         },
         {
-          "anchor": "Change Log",
-          "href": "https://discord.gg/RJDhCzA7Hv",
-          "icon": "bolt"
+          "anchor": "Follow on X",
+          "href": "https://x.com/michelangelo_os",
+          "icon": "X"
         },
         {
           "anchor": "Website",
@@ -87,18 +160,18 @@
     "links": [
       {
         "label": "Support",
-        "href": "mailto:sardo@michelangelo.land "
+        "href": "https://docs.michelangelo.land/v2/support/contact"
       },
       {
-        "label": "Sign In",
-        "href": "https://michelangelo.land/sign-in"
+        "label": "Download App iOS",
+        "href": "https://apps.apple.com/it/app/michelangelo-vibe-coding/id6744751580"
       }
     ]
   },
   "footer": {
     "socials": {
       "discord": "https://discord.gg/RJDhCzA7Hv",
-      "x": "https://x.com/AskMichelangelo",
+      "x": "https://x.com/michelangelo_os",
       "github": "https://github.com/michelangelo-land",
       "linkedin": "https://www.linkedin.com/company/michelangelo-land"
     }
