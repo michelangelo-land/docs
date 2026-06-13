@@ -44,6 +44,7 @@
           },
           {
             "group": "Web Experience",
+            "tag": "Coming soon",
             "pages": [
               "/v2/michelangelo-web/overview",
               "/v2/michelangelo-web/status",
@@ -52,6 +53,7 @@
           },
           {
             "group": "Meta Glasses",
+            "tag": "Coming soon",
             "pages": [
               "/v2/michelangelo-meta-glasses/overview",
               "/v2/michelangelo-meta-glasses/vision",
@@ -91,6 +93,7 @@
           },
           {
             "group": "API Reference",
+            "tag": "Coming soon",
             "pages": [
               "/v2/api/overview",
               "/v2/api/authentication",
@@ -197,6 +200,20 @@
       }
     ]
   },
+  "redirects": [
+    {
+      "source": "/user-guides/quickstart",
+      "destination": "/v2/michelangelo-app/getting-started"
+    },
+    {
+      "source": "/user-guides/integration",
+      "destination": "/v2/integrations/github"
+    },
+    {
+      "source": "/user-guides/prompt-engineering",
+      "destination": "/v2/how-to-build/prompt-engineering"
+    }
+  ],
   "footer": {
     "socials": {
       "discord": "https://discord.gg/RJDhCzA7Hv",
