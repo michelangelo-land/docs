@@ -3,12 +3,69 @@ title: "Project Lifecycle"
 description: "Understanding the project lifecycle in Michelangelo"
 ---
 
-<Info>
-  **Coming Soon** — This page is currently being written. Stay tuned for updates!
-</Info>
+A Michelangelo project moves through several stages from idea to shareable app. Understanding the lifecycle helps you know what to expect at each step.
 
-In the meantime, download the **Michelangelo iOS App** to start building apps today:
+## 1. Creation
 
-<Card title="Download Michelangelo App" icon="apple" color="#7c7c7c" href="https://apps.apple.com/it/app/michelangelo-vibe-coding/id6744751580">
-  Get started with Michelangelo directly on your iPhone.
-</Card>
+Every project starts with a prompt:
+
+- You describe the app in natural language.
+- You can attach up to **2 images** for visual reference.
+- Michelangelo creates the project, generates the initial files, and streams progress in real time.
+
+The AI also gives the project a name and generates an icon in the background.
+
+## 2. First Preview
+
+Once the initial files are ready, Michelangelo:
+
+- Prepares the source files for the inline sandbox.
+- Renders the app in the preview panel.
+- Lets you interact with the app immediately.
+
+If something fails during generation, you receive a notification and can try again.
+
+## 3. Iteration
+
+The editor is where most of the work happens. You can:
+
+- Send follow-up prompts to refine the app.
+- Fix runtime errors using the auto-fix feature.
+- Rename the project, change visibility, or delete it.
+
+<Tip>
+  Keep iterations focused. One feature or fix per prompt usually gives the best results.
+</Tip>
+
+## 4. Sharing
+
+When you are ready to share:
+
+- Use **App Settings → Share** to open the iOS share sheet.
+- A public preview link is generated: `https://michelangelo.land/preview/{projectId}`.
+- Anyone with the link can view and interact with the app.
+
+Toggle **Private App** to hide the project from the Explore feed.
+
+## 5. Export
+
+For standalone distribution:
+
+- Connect your GitHub account from **App Settings → Tools → GitHub**.
+- Push the source code to your own repository.
+- Build and submit the app using your own credentials.
+
+## 6. End of Life
+
+You can delete a project at any time from **App Settings → Delete**. Deletion removes the project and its files from Michelangelo. GitHub repositories already pushed are not affected.
+
+## Next Steps
+
+<CardGroup cols="2">
+  <Card title="Vibe Coding Basics" icon="pen-nib" color="#7c7c7c" href="/v2/how-to-build/vibe-coding-basics">
+    Learn the fundamentals of Vibe Coding.
+  </Card>
+  <Card title="Deploy App" icon="rocket" color="#7c7c7c" href="/v2/michelangelo-app/deploy-app">
+    Learn how to ship your app.
+  </Card>
+</CardGroup>

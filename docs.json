@@ -17,8 +17,7 @@
           {
             "group": "Introduction",
             "pages": [
-              "/v2/introduction",
-              "/v2/imaginer/imaginer"
+              "/v2/introduction"
             ]
           },
           {
@@ -36,19 +35,17 @@
             ]
           },
           {
-            "group": "Web Experience",
+            "group": "Platforms",
             "pages": [
-              "/v2/michelangelo-web/overview",
-              "/v2/michelangelo-web/status",
-              "/v2/michelangelo-web/design-philosophy"
+              "/v2/platforms/ios-app",
+              "/v2/platforms/web",
+              "/v2/platforms/meta-glasses"
             ]
           },
           {
-            "group": "Meta Glasses",
+            "group": "Imaginer",
             "pages": [
-              "/v2/michelangelo-meta-glasses/overview",
-              "/v2/michelangelo-meta-glasses/interaction-model",
-              "/v2/michelangelo-meta-glasses/vision"
+              "/v2/imaginer"
             ]
           },
           {
@@ -56,7 +53,15 @@
             "pages": [
               "/v2/how-to-build/vibe-coding-basics",
               "/v2/how-to-build/prompt-engineering",
-              "/v2/how-to-build/tokens-and-limits"
+              "/v2/how-to-build/tokens-and-limits",
+              "/v2/how-to-build/project-lifecycle"
+            ]
+          },
+          {
+            "group": "Manage & Deploy",
+            "pages": [
+              "/v2/manage-and-deploy/share-preview",
+              "/v2/manage-and-deploy/deploy-app"
             ]
           },
           {

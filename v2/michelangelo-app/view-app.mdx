@@ -3,12 +3,56 @@ title: "View App"
 description: "View your app in Michelangelo iOS App"
 ---
 
-<Info>
-  **Coming Soon** — This page is currently being written. Stay tuned for updates!
-</Info>
+Michelangelo renders your generated app in an inline sandbox so you can interact with it immediately, without leaving the app.
 
-In the meantime, download the **Michelangelo iOS App** to start building apps today:
+## Owner Preview
 
-<Card title="Download Michelangelo App" icon="apple" color="#7c7c7c" href="https://apps.apple.com/it/app/michelangelo-vibe-coding/id6744751580">
-  Get started with Michelangelo directly on your iPhone.
-</Card>
+When you open one of your own projects, the editor shows:
+
+- A live sandbox preview in the center.
+- The project name in the header.
+- A settings button to rename, share, delete, or connect GitHub.
+- A prompt input at the bottom to keep iterating.
+
+This is the central workspace for building and refining your app.
+
+## Public Preview
+
+When you open a project from the Explore feed, the app uses the read-only preview screen. You can interact with the app and see project info, but you cannot edit it.
+
+The public preview URL format is:
+
+```
+https://michelangelo.land/preview/{projectId}
+```
+
+## Sandbox Behavior
+
+The inline sandbox renders the generated source files inside a native view so you can tap, scroll, and test the app as if it were running on a device.
+
+### Auto-Fix
+
+If the sandbox throws a runtime error, Michelangelo can automatically send the error back to the AI and request a fix. This happens automatically during a session.
+
+### Beta Builds
+
+On beta builds, the editor may open the public preview page in a browser instead of rendering the sandbox inline. This is useful for testing distribution-related behavior.
+
+## Loading States
+
+While files are being fetched or generated, the editor shows:
+
+- A **Creating...** title during generation.
+- A loader while the project files are being prepared.
+- A skeleton placeholder if the sandbox fails to render.
+
+## Next Steps
+
+<CardGroup cols="2">
+  <Card title="Share App" icon="share-nodes" color="#7c7c7c" href="/v2/michelangelo-app/share-app">
+    Share your app with a public link.
+  </Card>
+  <Card title="Explore" icon="compass" color="#7c7c7c" href="/v2/michelangelo-app/explore">
+    Discover what others are building.
+  </Card>
+</CardGroup>

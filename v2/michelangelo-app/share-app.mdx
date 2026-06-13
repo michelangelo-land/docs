@@ -3,12 +3,53 @@ title: "Share App"
 description: "Share your app from Michelangelo iOS App"
 ---
 
-<Info>
-  **Coming Soon** — This page is currently being written. Stay tuned for updates!
-</Info>
+Sharing a Michelangelo project lets anyone view and interact with it through a public preview link.
 
-In the meantime, download the **Michelangelo iOS App** to start building apps today:
+## Public Preview Link
 
-<Card title="Download Michelangelo App" icon="apple" color="#7c7c7c" href="https://apps.apple.com/it/app/michelangelo-vibe-coding/id6744751580">
-  Get started with Michelangelo directly on your iPhone.
-</Card>
+Every shared project gets a public URL:
+
+```
+https://michelangelo.land/preview/{projectId}
+```
+
+This link opens the project in the web preview player and does not require a Michelangelo account.
+
+## Sharing from the Editor
+
+1. Open a project in the editor.
+2. Tap the settings icon in the header.
+3. Tap **Share**.
+4. Choose how you want to share the link from the native iOS share sheet.
+
+When the share is completed, Michelangelo records the platform so the creator can see how the project is being shared.
+
+## Visibility
+
+By default, projects can be shared. You can control visibility from **App Settings → Visibility → Private App**:
+
+- **Private App OFF** — the project is public and can appear in Explore.
+- **Private App ON** — the project is hidden from Explore.
+
+<Warning>
+  Enabling Private App hides the project from the Explore feed. It does not invalidate existing preview links.
+</Warning>
+
+## Sharing from Explore
+
+When you find a project you like in Explore, tap the share button to send the public preview link to others. This also records a reshare for the original creator.
+
+## Reshares and Notifications
+
+When someone shares your project, the original creator may receive a notification depending on notification settings.
+
+## Next Steps
+
+<CardGroup cols="2">
+  <Card title="Explore" icon="compass" color="#7c7c7c" href="/v2/michelangelo-app/explore">
+    Discover apps shared by the community.
+  </Card>
+  <Card title="View App" icon="eye" color="#7c7c7c" href="/v2/michelangelo-app/view-app">
+    Learn how the preview and sandbox work.
+  </Card>
+</CardGroup>

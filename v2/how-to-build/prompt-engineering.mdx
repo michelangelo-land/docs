@@ -3,12 +3,68 @@ title: "Prompt Engineering"
 description: "Learn how to write effective prompts for Michelangelo"
 ---
 
+The quality of your prompt directly affects the quality of the generated app. A good prompt gives the AI enough context to produce something useful while leaving room for iteration.
+
+## Anatomy of a Good Prompt
+
+A strong prompt usually includes:
+
+- **Goal** — what the app should do.
+- **Screens** — what pages or views the app needs.
+- **Data** — what information the app shows or collects.
+- **Behavior** — how the app should respond to user actions.
+- **Style** — any visual direction, such as colors or layout preferences.
+
+## Examples
+
+**Weak:**
+> "Make a fitness app."
+
+**Strong:**
+> "Create a workout logging app with two tabs: a list of past workouts and a form to add a new workout. Each workout should have a name, duration, and date. Use a dark theme with cards for each workout."
+
+## Tips for Better Results
+
+- **Be concrete** — use specific names, labels, and values.
+- **Limit scope** — focus on one or two screens per prompt.
+- **Mention data flow** — explain where data comes from and where it goes.
+- **Reference existing apps** — "like Strava but for books" can help set expectations.
+- **Attach images** — screenshots, sketches, or wireframes guide the layout.
+
+## Iterating with Follow-Up Prompts
+
+You do not need to get everything right in the first prompt. Use follow-ups to refine:
+
+- "Add a settings screen with a toggle for dark mode."
+- "Make the list items larger and add an icon."
+- "Fetch the weather from the Open-Meteo API instead of using mock data."
+- "Fix the error that appears when I tap the submit button."
+
 <Info>
-  **Coming Soon** — This page is currently being written. Stay tuned for updates!
+  Michelangelo applies follow-up prompts as edits rather than starting from scratch, so you can build incrementally.
 </Info>
 
-In the meantime, download the **Michelangelo iOS App** to start building apps today:
+## Handling Errors
 
-<Card title="Download Michelangelo App" icon="apple" color="#7c7c7c" href="https://apps.apple.com/it/app/michelangelo-vibe-coding/id6744751580">
-  Get started with Michelangelo directly on your iPhone.
-</Card>
+If the sandbox shows a runtime error, you can:
+
+1. Read the error message in the sandbox.
+2. Send a follow-up prompt like: `Fix this error: {error message}`.
+3. Let Michelangelo auto-fix when available.
+
+## Common Mistakes
+
+- **Too vague** — the AI makes assumptions you may not like.
+- **Too large** — asking for 10 features at once often leads to partial results.
+- **Ignoring the sandbox** — always test the generated app before the next prompt.
+
+## Next Steps
+
+<CardGroup cols="2">
+  <Card title="Vibe Coding Basics" icon="pen-nib" color="#7c7c7c" href="/v2/how-to-build/vibe-coding-basics">
+    Learn the fundamentals of Vibe Coding.
+  </Card>
+  <Card title="Project Lifecycle" icon="arrows-rotate" color="#7c7c7c" href="/v2/how-to-build/project-lifecycle">
+    Understand the project lifecycle.
+  </Card>
+</CardGroup>

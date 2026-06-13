@@ -3,12 +3,43 @@ title: "Sign In"
 description: "Sign in to Michelangelo iOS App"
 ---
 
+Michelangelo supports multiple sign-in methods through a secure authentication service. Choose the one that works best for you.
+
+## Authentication Methods
+
+### Email OTP
+
+The default sign-in method:
+
+1. Enter your email address.
+2. Tap **Send OTP**.
+3. Check your inbox for a 6-digit code.
+4. Enter the code and tap **Validate OTP**.
+
 <Info>
-  **Coming Soon** — This page is currently being written. Stay tuned for updates!
+  The code is a one-time password. If you need to use a different email, tap **Back** and start again.
 </Info>
 
-In the meantime, download the **Michelangelo iOS App** to start building apps today:
+### Apple Sign In
 
-<Card title="Download Michelangelo App" icon="apple" color="#7c7c7c" href="https://apps.apple.com/it/app/michelangelo-vibe-coding/id6744751580">
-  Get started with Michelangelo directly on your iPhone.
-</Card>
+Tap the Apple button and authenticate with Face ID, Touch ID, or your Apple ID password. Michelangelo requests access to your **full name** and **email**.
+
+### Google
+
+Tap the Google button to start an OAuth session in a secure web browser. The session is completed automatically when you return to the app.
+
+### GitHub
+
+Tap the GitHub button to sign in via OAuth. This is the same account used by the <a href="/v2/michelangelo-app/github-integration">GitHub integration</a>, but you can also connect GitHub later from the editor.
+
+## Session and Sign Out
+
+After a successful sign-in, the app initializes your profile and shows the home screen. Your session is persisted across app restarts.
+
+To sign out, open your profile and use the sign-out option. Signing out also clears notification preferences and the local cache.
+
+## Troubleshooting
+
+- **OTP not received** — check your spam folder and verify the email address.
+- **OAuth loop** — make sure you are returning to the app from the browser after authorizing.
+- **Apple Sign In fails** — ensure you are signed in to iCloud on your device.

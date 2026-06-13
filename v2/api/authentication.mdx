@@ -3,12 +3,35 @@ title: "Authentication"
 description: "API Authentication for Michelangelo"
 ---
 
+The Michelangelo API will use secure, industry-standard authentication so your applications can interact with Michelangelo on behalf of users.
+
+## Authentication Methods
+
+The API is planned to support multiple ways to authenticate:
+
+- **API keys** for server-to-server integrations.
+- **OAuth tokens** for applications acting on behalf of users.
+- **User session tokens** for first-party clients.
+
+## Security
+
+All authentication will be transmitted over HTTPS. Tokens will be scoped to limit what each integration can access, and users will be able to revoke access at any time.
+
+## Getting Credentials
+
+When the API enters early access, you will be able to generate credentials from your Michelangelo account settings. Documentation will include setup steps for each supported method.
+
 <Info>
-  **Coming Soon** — This page is currently being written. Stay tuned for updates!
+  API authentication details are not yet finalized. Join the community for early access announcements.
 </Info>
 
-In the meantime, download the **Michelangelo iOS App** to start building apps today:
+## Next Steps
 
-<Card title="Download Michelangelo App" icon="apple" color="#7c7c7c" href="https://apps.apple.com/it/app/michelangelo-vibe-coding/id6744751580">
-  Get started with Michelangelo directly on your iPhone.
-</Card>
+<CardGroup cols="2">
+  <Card title="API Overview" icon="book" color="#7c7c7c" href="/v2/api/overview">
+    Read the API overview.
+  </Card>
+  <Card title="Examples" icon="code" color="#7c7c7c" href="/v2/api/examples">
+    Explore planned API workflows.
+  </Card>
+</CardGroup>
