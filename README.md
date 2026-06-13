@@ -45,7 +45,7 @@ Welcome to the official documentation for michelangelo.land - an innovative plat
 
 ## Support
 
-- Join our [Discord Community](https://discord.gg/n6XjnCZec2)
+- Join our [Discord Community](https://discord.com/invite/RJDhCzA7Hv)
 - Report issues through Discord
 - Enterprise users get priority support
 - Email support: sardo@michelangelo.land 
@@ -53,7 +53,7 @@ Welcome to the official documentation for michelangelo.land - an innovative plat
 ## Stay Connected
 
 - [Website](https://michelangelo.land)
-- [Discord](https://discord.gg/n6XjnCZec2)
+- [Discord](https://discord.com/invite/RJDhCzA7Hv)
 - [Twitter](https://x.com/michelangelo_os)
 - [GitHub](https://github.com/michelangelo-land)
 - [LinkedIn](https://www.linkedin.com/company/michelangelo-land)
