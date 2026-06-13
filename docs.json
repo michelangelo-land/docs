@@ -43,6 +43,22 @@
             ]
           },
           {
+            "group": "Web Experience",
+            "pages": [
+              "/v2/michelangelo-web/overview",
+              "/v2/michelangelo-web/status",
+              "/v2/michelangelo-web/design-philosophy"
+            ]
+          },
+          {
+            "group": "Meta Glasses",
+            "pages": [
+              "/v2/michelangelo-meta-glasses/overview",
+              "/v2/michelangelo-meta-glasses/vision",
+              "/v2/michelangelo-meta-glasses/interaction-model"
+            ]
+          },
+          {
             "group": "Imaginer",
             "pages": [
               "/v2/imaginer"
@@ -71,6 +87,14 @@
               "/v2/integrations/supabase",
               "/v2/integrations/expo",
               "/v2/integrations/third-party"
+            ]
+          },
+          {
+            "group": "API Reference",
+            "pages": [
+              "/v2/api/overview",
+              "/v2/api/authentication",
+              "/v2/api/examples"
             ]
           },
           {
