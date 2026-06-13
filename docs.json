@@ -158,7 +158,7 @@
       "anchors": [
         {
           "anchor": "Documentation",
-          "href": "https://docs.michelangelo.land/v2/introduction",
+          "href": "/v2/introduction",
           "icon": "book-open"
         },
         {
