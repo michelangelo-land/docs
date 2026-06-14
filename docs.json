@@ -11,6 +11,12 @@
   "fonts": {
     "family": "Geist"
   },
+  "thumbnails": {
+    "appearance": "dark",
+    "fonts": {
+      "family": "Geist"
+    }
+  },
   "navigation": {
     "versions": [
       {
