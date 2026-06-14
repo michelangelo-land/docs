@@ -221,5 +221,10 @@
       "github": "https://github.com/michelangelo-land",
       "linkedin": "https://www.linkedin.com/company/michelangelo-land"
     }
+  },
+  "integrations": {
+    "telemetry": {
+      "enabled": true
+    }
   }
 }
