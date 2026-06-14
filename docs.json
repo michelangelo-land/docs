@@ -9,16 +9,7 @@
   },
   "favicon": "favicon.svg",
   "fonts": {
-    "family": "Geist",
-    "weight": 400,
-    "heading": {
-      "family": "Geist",
-      "weight": 700
-    },
-    "body": {
-      "family": "Geist",
-      "weight": 400
-    }
+    "family": "Geist"
   },
   "navigation": {
     "versions": [
