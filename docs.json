@@ -12,10 +12,7 @@
     "family": "Geist"
   },
   "thumbnails": {
-    "appearance": "dark",
-    "fonts": {
-      "family": "Geist"
-    }
+    "appearance": "dark"
   },
   "navigation": {
     "versions": [
