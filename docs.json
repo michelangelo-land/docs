@@ -191,8 +191,8 @@
     }
   },
   "logo": {
-    "light": "/images/light.png",
-    "dark": "/images/dark.png"
+    "light": "https://docs.michelangelo.land/images/light.png",
+    "dark": "https://docs.michelangelo.land/images/dark.png"
   },
   "navbar": {
     "links": [
