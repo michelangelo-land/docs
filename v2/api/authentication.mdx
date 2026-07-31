@@ -21,12 +21,16 @@ All traffic is HTTPS-only. Tokens are validated asymmetrically against the ident
 
 Michelangelo's identity provider is a standard OAuth 2.1 authorization server with PKCE enforced and **Dynamic Client Registration enabled** — your app registers itself programmatically, with no manual credential request.
 
+<Info>
+  Every endpoint you need lives under `api.michelangelo.land` — auth, OAuth, and data APIs. The infrastructure behind it is an implementation detail: your integration only ever talks to one domain.
+</Info>
+
 ### Endpoints
 
 | Purpose | URL |
 |---|---|
-| Issuer | `https://hwtolnqskgrdgqpacdpi.supabase.co/auth/v1` |
-| Discovery | `https://hwtolnqskgrdgqpacdpi.supabase.co/auth/v1/.well-known/oauth-authorization-server` |
+| Issuer | `https://api.michelangelo.land/auth/v1` |
+| Discovery | `https://api.michelangelo.land/auth/v1/.well-known/oauth-authorization-server` |
 | Client registration (DCR) | `POST …/auth/v1/oauth/clients/register` |
 | Authorization | `…/auth/v1/oauth/authorize` |
 | Token | `…/auth/v1/oauth/token` |
@@ -36,7 +40,7 @@ The discovery document is the authoritative source — your client should resolv
 ### 1. Register your client
 
 ```bash
-curl -X POST https://hwtolnqskgrdgqpacdpi.supabase.co/auth/v1/oauth/clients/register \
+curl -X POST https://api.michelangelo.land/auth/v1/oauth/clients/register \
   -H "Content-Type: application/json" \
   -d '{
     "client_name": "My Community App",
@@ -63,7 +67,7 @@ code_challenge = BASE64URL( SHA256( code_verifier ) )
 Send the user to:
 
 ```
-https://hwtolnqskgrdgqpacdpi.supabase.co/auth/v1/oauth/authorize
+https://api.michelangelo.land/auth/v1/oauth/authorize
   ?response_type=code
   &client_id=<client_id>
   &redirect_uri=<registered redirect_uri>
@@ -81,7 +85,7 @@ The user authenticates and approves (or denies) your app's request on Michelange
 ### 4. Exchange the code for a token
 
 ```bash
-curl -X POST https://hwtolnqskgrdgqpacdpi.supabase.co/auth/v1/oauth/token \
+curl -X POST https://api.michelangelo.land/auth/v1/oauth/token \
   -H "Content-Type: application/x-www-form-urlencoded" \
   -d "grant_type=authorization_code" \
   -d "code=<authorization_code>" \

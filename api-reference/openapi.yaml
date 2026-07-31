@@ -180,8 +180,8 @@ components:
         Registration — see the Authentication guide for the full flow.
       flows:
         authorizationCode:
-          authorizationUrl: https://hwtolnqskgrdgqpacdpi.supabase.co/auth/v1/oauth/authorize
-          tokenUrl: https://hwtolnqskgrdgqpacdpi.supabase.co/auth/v1/oauth/token
+          authorizationUrl: https://api.michelangelo.land/auth/v1/oauth/authorize
+          tokenUrl: https://api.michelangelo.land/auth/v1/oauth/token
           scopes: {}
     bearerAuth:
       type: http
