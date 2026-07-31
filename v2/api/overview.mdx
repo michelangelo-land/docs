@@ -41,7 +41,7 @@ Job state lives in the database, not in the HTTP connection — so it survives c
 Every `prompt` job passes through a server-side evaluation step before it runs:
 
 - Prompts that can't produce a meaningful app are rejected early with `400 {code: "invalid_prompt"}`.
-- The evaluation picks the right model tier for the request (`sonnet` for light work, `opus` for full builds) and records it in `input.model`.
+- The evaluation picks the right generation tier for the request (`light` for simple changes, `full` for complex builds) and records it in `input.model`. The tiers are vendor-neutral — the concrete model behind each one is a server-side detail that can improve over time without breaking your integration.
 - Usage above your quota returns `429` with a `Retry-After` header.
 
 You don't need to choose a model yourself — submit the prompt and let the API decide.

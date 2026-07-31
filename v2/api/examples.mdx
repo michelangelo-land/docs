@@ -49,7 +49,7 @@ curl "$API/projects?limit=10" -H "Authorization: Bearer $TOKEN"
 
 ### 3. Create a generation job
 
-Submit a prompt against that project. `input.model` is optional — the API evaluates the prompt and picks the tier (`sonnet` or `opus`) for you.
+Submit a prompt against that project. `input.model` is optional — the API evaluates the prompt and picks the tier (`light` or `full`) for you.
 
 ```bash
 curl -X POST "$API/jobs" \

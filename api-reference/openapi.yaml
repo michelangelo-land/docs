@@ -250,8 +250,13 @@ components:
               type: string
             model:
               type: string
-              enum: [sonnet, opus, k2-coding]
-              description: Runner model tier; server-enriched from prompt evaluation when absent
+              enum: [light, full]
+              description: >
+                Vendor-neutral generation tier. `light`: faster and cheaper,
+                for simple changes. `full`: deepest reasoning, for complex
+                builds. The concrete model behind each tier is a server-side
+                detail and may change over time. Server-enriched from prompt
+                evaluation when absent.
             appName:
               type: [string, "null"]
               description: Generated app name (first generation only); server-enriched when absent
