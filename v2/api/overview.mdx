@@ -1,38 +1,75 @@
 ---
 title: "API Overview"
-description: "Overview of the Michelangelo API"
+description: "The Michelangelo public API: async AI generation jobs, project access, and OAuth 2.1 for community developers"
 mode: "wide"
 ---
 
 ## Michelangelo API
 
-The Michelangelo API will let you integrate Michelangelo's AI-driven code generation into your own applications and workflows.
+The Michelangelo API lets you integrate Michelangelo's AI-driven app generation into your own applications, plugins, and workflows. It is a small, versioned REST API served at:
 
-## What You Can Build
+```
+https://api.michelangelo.land/v1
+```
 
-With the API, you will be able to:
+The full contract is published as an [OpenAPI 3.1 specification](/api-reference/openapi.yaml) and the endpoint pages in this section are generated from it. The OpenAPI spec is the source of truth: SDKs, the future MCP server, and every community integration build on top of it.
 
-- Create projects from prompts.
-- Iterate on existing projects.
-- Retrieve project previews and metadata.
-- Generate public preview links.
-- Export source code to connected repositories.
+## What You Can Build Today
 
-## Designed for Developers
+The API is live in early access. With it you can:
 
-The API is being built for teams and creators who want to embed Michelangelo into their own tools, dashboards, or automation. It will use standard HTTP requests and clear response formats.
+- **Run AI generation jobs** — submit a prompt against one of your projects and let Michelangelo's managed runner generate or modify the app (`POST /v1/jobs`).
+- **Track job progress** — poll a job until it reaches a terminal state and read its result (`GET /v1/jobs/{jobId}`).
+- **Read your projects** — list and fetch the projects owned by the authenticated user (`GET /v1/projects`, `GET /v1/projects/{projectId}`).
+- **Introspect tokens** — validate a token and discover the user, OAuth client, and scopes behind it (`GET /v1/whoami`).
+- **Check availability** — a lightweight health check (`GET /v1/health`).
+
+Every response is JSON, errors follow a consistent `{code, message, details?}` shape, and all routes are versioned under `/v1` — breaking changes will ship as `/v2`.
+
+## The Key Concept: Async Jobs
+
+AI generation takes minutes, not milliseconds. The golden rule of the API is: **the API never executes long-running work inline**. Instead:
+
+1. `POST /v1/jobs` creates a job row (`status: queued`), dispatches the work to a managed runner, and returns immediately with a `job_id` (`202 Accepted`).
+2. The runner executes the generation in the background and finalizes the job.
+3. Your client polls `GET /v1/jobs/{jobId}` with backoff (2s → 30s) until the status is `succeeded`, `failed`, or `canceled`.
+
+Job state lives in the database, not in the HTTP connection — so it survives client disconnects, retries, and app restarts. Read the full pattern in [Async Jobs](/v2/api/jobs).
+
+## Built-in Prompt Intelligence
+
+Every `prompt` job passes through a server-side evaluation step before it runs:
+
+- Prompts that can't produce a meaningful app are rejected early with `400 {code: "invalid_prompt"}`.
+- The evaluation picks the right model tier for the request (`sonnet` for light work, `opus` for full builds) and records it in `input.model`.
+- Usage above your quota returns `429` with a `Retry-After` header.
+
+You don't need to choose a model yourself — submit the prompt and let the API decide.
+
+## Status and Roadmap
 
 <Info>
-  The Michelangelo API is currently in development. Early access will open to selected partners and community members first.
+  The API is **v0.1 in early access**. It is stable enough to build against, but expect evolution: the underlying OAuth server (Supabase OAuth 2.1) is itself in public beta, and rate limits are being tuned during early access. Breaking changes will ship under a new version prefix, never in place.
 </Info>
+
+Public roadmap, in order:
+
+- **MCP server** — a Michelangelo MCP server that wraps this API, so AI agents can drive generation directly.
+- **Official SDK** — a TypeScript/JavaScript SDK generated from the OpenAPI specification.
 
 ## Next Steps
 
 <CardGroup cols="2">
   <Card title="Authentication" icon="key" color="#7c7c7c" href="/v2/api/authentication">
-    Learn how authentication will work.
+    OAuth 2.1 + PKCE with Dynamic Client Registration, or first-party bearer tokens.
+  </Card>
+  <Card title="Async Jobs" icon="arrows-rotate" color="#7c7c7c" href="/v2/api/jobs">
+    The async job pattern: lifecycle, polling, and results.
   </Card>
   <Card title="Examples" icon="code" color="#7c7c7c" href="/v2/api/examples">
-    Explore planned API workflows.
+    Complete curl workflows, from token to finished generation.
+  </Card>
+  <Card title="OpenAPI Spec" icon="book" color="#7c7c7c" href="/api-reference/openapi.yaml">
+    The full OpenAPI 3.1 contract — the source of truth for every endpoint.
   </Card>
 </CardGroup>

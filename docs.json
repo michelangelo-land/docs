@@ -99,11 +99,17 @@
           },
           {
             "group": "API Reference",
-            "tag": "Coming soon",
+            "openapi": "/api-reference/openapi.yaml",
             "pages": [
               "/v2/api/overview",
               "/v2/api/authentication",
-              "/v2/api/examples"
+              "/v2/api/jobs",
+              "/v2/api/examples",
+              "GET /whoami",
+              "POST /jobs",
+              "GET /jobs/{jobId}",
+              "GET /projects",
+              "GET /projects/{projectId}"
             ]
           },
           {

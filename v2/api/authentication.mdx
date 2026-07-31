@@ -1,37 +1,146 @@
 ---
 title: "Authentication"
-description: "API Authentication for Michelangelo"
+description: "OAuth 2.1 + PKCE with Dynamic Client Registration for community apps, and bearer JWTs for first-party clients"
 ---
 
-The Michelangelo API will use secure, industry-standard authentication so your applications can interact with Michelangelo on behalf of users.
+The Michelangelo API supports two ways to authenticate, depending on who built the client:
 
-## Authentication Methods
+1. **OAuth 2.1 + PKCE** — for third-party and community applications acting on behalf of a Michelangelo user. Your app registers itself (no manual signup), sends the user through a consent screen, and receives a token scoped to that user.
+2. **Bearer JWT (first-party)** — for the official Michelangelo app and first-party clients, which present the user's existing session token.
 
-The API is planned to support multiple ways to authenticate:
+Either way, you send the token as a standard bearer token:
 
-- **API keys** for server-to-server integrations.
-- **OAuth tokens** for applications acting on behalf of users.
-- **User session tokens** for first-party clients.
+```bash
+curl https://api.michelangelo.land/v1/whoami \
+  -H "Authorization: Bearer <access_token>"
+```
 
-## Security
+All traffic is HTTPS-only. Tokens are validated asymmetrically against the identity provider's **JWKS endpoint** — the API verifies signatures locally without calling back to the identity provider on every request.
 
-All authentication will be transmitted over HTTPS. Tokens will be scoped to limit what each integration can access, and users will be able to revoke access at any time.
+## OAuth 2.1 for Community Apps
 
-## Getting Credentials
+Michelangelo's identity provider is a standard OAuth 2.1 authorization server with PKCE enforced and **Dynamic Client Registration enabled** — your app registers itself programmatically, with no manual credential request.
 
-When the API enters early access, you will be able to generate credentials from your Michelangelo account settings. Documentation will include setup steps for each supported method.
+### Endpoints
+
+| Purpose | URL |
+|---|---|
+| Issuer | `https://hwtolnqskgrdgqpacdpi.supabase.co/auth/v1` |
+| Discovery | `https://hwtolnqskgrdgqpacdpi.supabase.co/auth/v1/.well-known/oauth-authorization-server` |
+| Client registration (DCR) | `POST …/auth/v1/oauth/clients/register` |
+| Authorization | `…/auth/v1/oauth/authorize` |
+| Token | `…/auth/v1/oauth/token` |
+
+The discovery document is the authoritative source — your client should resolve endpoints from it rather than hard-coding them.
+
+### 1. Register your client
+
+```bash
+curl -X POST https://hwtolnqskgrdgqpacdpi.supabase.co/auth/v1/oauth/clients/register \
+  -H "Content-Type: application/json" \
+  -d '{
+    "client_name": "My Community App",
+    "redirect_uris": ["https://yourapp.example.com/callback"],
+    "grant_types": ["authorization_code"],
+    "token_endpoint_auth_method": "none"
+  }'
+```
+
+The response contains your `client_id`. Public clients authenticate at the token endpoint with `token_endpoint_auth_method: "none"` plus PKCE — there is no client secret.
+
+<Warning>
+  `redirect_uri` validation uses **exact string matching, including the port**. The URI sent to `/oauth/authorize` and `/oauth/token` must match a registered URI byte-for-byte. Native apps using a loopback redirect (RFC 8252) must register the exact loopback URI with the exact port they will listen on.
+</Warning>
+
+### 2. Build the authorization URL (PKCE S256)
+
+Generate a high-entropy random `code_verifier` (43–128 chars), then compute:
+
+```
+code_challenge = BASE64URL( SHA256( code_verifier ) )
+```
+
+Send the user to:
+
+```
+https://hwtolnqskgrdgqpacdpi.supabase.co/auth/v1/oauth/authorize
+  ?response_type=code
+  &client_id=<client_id>
+  &redirect_uri=<registered redirect_uri>
+  &code_challenge=<code_challenge>
+  &code_challenge_method=S256
+  &scope=email
+```
+
+PKCE with the `S256` method is **mandatory**; plain challenges are rejected.
+
+### 3. User consent
+
+The user authenticates and approves (or denies) your app's request on Michelangelo's consent screen, hosted at `https://api.michelangelo.land/oauth/consent`. On approval, the browser is redirected back to your `redirect_uri` with an authorization `code`.
+
+### 4. Exchange the code for a token
+
+```bash
+curl -X POST https://hwtolnqskgrdgqpacdpi.supabase.co/auth/v1/oauth/token \
+  -H "Content-Type: application/x-www-form-urlencoded" \
+  -d "grant_type=authorization_code" \
+  -d "code=<authorization_code>" \
+  -d "redirect_uri=<registered redirect_uri>" \
+  -d "client_id=<client_id>" \
+  -d "code_verifier=<original code_verifier>"
+```
+
+The response contains an `access_token` (a JWT signed with ES256) and a `refresh_token`. OAuth tokens carry a `client_id` claim identifying your application — the API uses it for per-client quota and auditing.
+
+### 5. Call the API and verify
+
+```bash
+curl https://api.michelangelo.land/v1/whoami \
+  -H "Authorization: Bearer <access_token>"
+```
+
+A real response looks like:
+
+```json
+{
+  "user_id": "7b1c3f2e-…",
+  "client_id": "a4f2…",
+  "scopes": ["email"]
+}
+```
+
+If `whoami` returns `200`, your OAuth flow works end to end.
+
+## First-Party Bearer Tokens
+
+The official Michelangelo app authenticates users directly and calls the API with the resulting session JWT (`Authorization: Bearer <session_jwt>`). These tokens are validated the same way (JWKS) but carry no `client_id`. If you are building on top of the official app's session rather than registering an OAuth client, this is the mode you are using — for anything public-facing, prefer the OAuth flow above.
+
+## Errors
+
+Authentication failures return a consistent shape:
+
+```json
+{ "code": "invalid_token", "message": "…" }
+```
+
+| HTTP | `code` | Meaning |
+|---|---|---|
+| 401 | `missing_token` | No `Authorization` header provided |
+| 401 | `invalid_token` | Token expired, malformed, or bad signature |
+
+## Beta Notes
 
 <Info>
-  API authentication details are not yet finalized. Join the community for early access announcements.
+  The OAuth authorization server is in **public beta** (Supabase OAuth 2.1). The flow above is verified end to end — DCR, PKCE, consent, token exchange — but check the community channels for GA status and any changes before a production launch.
 </Info>
 
 ## Next Steps
 
 <CardGroup cols="2">
-  <Card title="API Overview" icon="book" color="#7c7c7c" href="/v2/api/overview">
-    Read the API overview.
+  <Card title="Async Jobs" icon="arrows-rotate" color="#7c7c7c" href="/v2/api/jobs">
+    Learn the job lifecycle before your first generation.
   </Card>
   <Card title="Examples" icon="code" color="#7c7c7c" href="/v2/api/examples">
-    Explore planned API workflows.
+    Complete curl workflows with a real token.
   </Card>
 </CardGroup>

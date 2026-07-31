@@ -1,0 +1,112 @@
+---
+title: "Async Jobs"
+description: "The async job pattern at the heart of the Michelangelo API: lifecycle, states, polling, and results"
+---
+
+AI-driven app generation takes minutes. The Michelangelo API never executes long-running work inline inside an HTTP request — instead, every generation is an **async job** whose state lives in the database, not in your connection. This page explains the pattern in depth.
+
+## Why Async
+
+A generation job runs AI models, writes code, and saves files — far beyond any reasonable HTTP timeout. Making the job a first-class resource means:
+
+- Your client gets an immediate answer (`202`) and a durable `job_id`.
+- The job survives client disconnects, retries, and app restarts — you can always come back and ask for its status.
+- The API stays fast and cheap: requests do validation and bookkeeping, the heavy lifting happens in a managed runner.
+
+## The Flow
+
+```
+Client                    API                          Managed runner
+  │                         │                                │
+  │  POST /v1/jobs          │                                │
+  │────────────────────────>│  validate prompt (AI step)     │
+  │                         │  create row (status: queued)   │
+  │                         │  dispatch work ───────────────>│
+  │  202 { id: "…" }        │                                │
+  │<────────────────────────│                                │ works
+  │                         │                                │ (minutes)
+  │  GET /v1/jobs/{id}      │                                │
+  │────────────────────────>│                                │
+  │  200 { status: "…" }    │        finalize job row        │
+  │<────────────────────────│<───────────────────────────────│
+  │                         │                                │
+  │  …poll until terminal…  │                                │
+```
+
+1. **Create** — `POST /v1/jobs` validates the request, runs the prompt through a server-side AI evaluation (rejecting unusable prompts with `400 invalid_prompt`, choosing the model tier), creates the job row with `status: queued`, and dispatches the work to the runner. The response returns immediately with the job snapshot.
+2. **Execute** — the managed runner performs the generation with no HTTP timeout constraints. While it works, the job moves to `running`.
+3. **Finalize** — when done, the runner finalizes the job row with the outcome. Jobs already in a terminal state cannot be finalized again (`409 job_terminal`).
+4. **Observe** — your client polls `GET /v1/jobs/{jobId}` until the status is terminal.
+
+## States
+
+| Status | Terminal? | Meaning |
+|---|---|---|
+| `queued` | no | Created and dispatched; the runner has not picked it up yet |
+| `running` | no | The runner is executing the generation |
+| `succeeded` | yes | Finished successfully — see `result` |
+| `failed` | yes | The runner could not complete the job — see `error` |
+| `canceled` | yes | The job was canceled before completion |
+
+Terminal states are final: a job never leaves `succeeded`, `failed`, or `canceled`.
+
+## Job Shape and Result
+
+```json
+{
+  "id": "3f8a2c1e-…",
+  "type": "prompt",
+  "status": "succeeded",
+  "project_id": 3637,
+  "result": {
+    "project_id": 3637,
+    "files_saved": 6
+  },
+  "created_at": "2026-07-31T…",
+  "updated_at": "2026-07-31T…"
+}
+```
+
+On success, `result` contains `project_id` (the numeric id of the project the generation wrote to) and `files_saved` (how many files the generation produced). On failure, the `error` object follows the standard `{code, message, details?}` shape.
+
+Note the two ids: the **job id** is a UUID returned by `POST /v1/jobs`; the **project id** is a numeric int64 that you pass in and read back.
+
+## Polling
+
+Poll `GET /v1/jobs/{jobId}` with exponential backoff, starting at 2 seconds and capping at 30 seconds:
+
+- A generation usually takes minutes — polling faster than 2s wastes quota.
+- Stop polling on any terminal status, and back off further on `429` (honor the `Retry-After` header).
+- Treat `404 job_not_found` as fatal for that id: the job doesn't exist or isn't visible to your token.
+
+See [Examples](/v2/api/examples) for a ready-to-use bash polling loop.
+
+<Info>
+  Realtime delivery (SSE / realtime subscriptions) may be offered in a future version as an alternative to polling, without changing this contract.
+</Info>
+
+## Retries and Idempotency
+
+There is no idempotency key in v0.1: every `POST /v1/jobs` creates a new job. Practical guidance:
+
+- **Persist the `job_id`** as soon as you receive the `202`. If your client crashes mid-flow, resume by polling that id instead of resubmitting.
+- If `POST /v1/jobs` itself fails with `502 job_create_failed` or a network error **before you have a job id**, it is safe to retry the POST — the job may or may not have been created, but creating a duplicate is recoverable (an extra generation on the same project).
+- Never retry `400 invalid_prompt` or `429 rate_limited` blindly: fix the prompt, or wait for the `Retry-After` window.
+- Polling is idempotent by definition — `GET` as often as your backoff schedule allows.
+
+## Current Limits (Early Access)
+
+- **Job types**: only `type: "prompt"` is supported in v0.1. The catalog grows with the runner.
+- **Existing projects only**: `project_id` is effectively required today. Creating a brand-new project from scratch via the API (first generation) is not yet supported — create the project in the app, then iterate on it through the API.
+- **Rate limits** are being tuned during early access; quota snapshots appear in `whoami` when available, and over-quota requests return `429` with `Retry-After`.
+
+## Next Steps
+
+<CardGroup cols="2">
+  <Card title="Examples" icon="code" color="#7c7c7c" href="/v2/api/examples">
+    A complete happy-path workflow, step by step.
+  </Card>
+  <Card title="Authentication" icon="key" color="#7c7c7c" href="/v2/api/authentication">
+    Get a token via OAuth 2.1 + PKCE.
+  </Card>
+</CardGroup>

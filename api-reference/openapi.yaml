@@ -1,0 +1,363 @@
+openapi: 3.1.0
+info:
+  title: Michelangelo Public API
+  version: 0.1.0
+  description: >
+    Public API of the Michelangelo platform. This is the stable contract for the
+    community: plugins, SDKs, MCP servers and third-party apps integrate here —
+    never directly with the underlying backend.
+
+    Design rules:
+    - Every long-running operation is an async **job** with state in the DB.
+    - Auth is OAuth 2.1 + PKCE; tokens are JWTs validated via JWKS.
+    - All routes are versioned under `/v1`. Breaking changes ship as `/v2`.
+  contact:
+    name: Michelangelo Community
+  license:
+    name: MIT
+    identifier: MIT
+servers:
+  - url: https://api.michelangelo.land/v1
+    description: Production
+tags:
+  - name: auth
+    description: Identity introspection for the current token
+  - name: jobs
+    description: Async long-running operations (prompts, builds, AI runs)
+  - name: projects
+    description: Michelangelo projects owned by the authenticated user
+
+paths:
+  /whoami:
+    get:
+      tags: [auth]
+      operationId: getWhoami
+      summary: Return the identity behind the current access token
+      description: >
+        Cheap endpoint for clients to validate a token and discover the user,
+        the OAuth client it was issued to, and the granted scopes. Backed by
+        JWKS validation only — no upstream call required.
+      security:
+        - oauth2: []
+        - bearerAuth: []
+      responses:
+        "200":
+          description: Current token identity
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Whoami"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+
+  /jobs:
+    post:
+      tags: [jobs]
+      operationId: createJob
+      summary: Create an async job
+      description: >
+        Validates the prompt with a server-side AI evaluation step, creates a
+        job row (`status: queued`), dispatches the work to the managed runner
+        and returns immediately with a `job_id`. The HTTP request never waits
+        for the work itself — poll `GET /jobs/{jobId}` for progress.
+      security:
+        - oauth2: []
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateJobRequest"
+      responses:
+        "202":
+          description: Job accepted and queued
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Job"
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "429":
+          $ref: "#/components/responses/RateLimited"
+
+  /jobs/{jobId}:
+    get:
+      tags: [jobs]
+      operationId: getJob
+      summary: Get job status
+      description: >
+        Polling endpoint. Clients should poll with backoff (suggested: 2s → 30s
+        max). A future version may offer realtime delivery (SSE / Realtime)
+        without changing this contract.
+      security:
+        - oauth2: []
+        - bearerAuth: []
+      parameters:
+        - $ref: "#/components/parameters/JobId"
+      responses:
+        "200":
+          description: Job snapshot
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Job"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "404":
+          $ref: "#/components/responses/NotFound"
+
+  /projects:
+    get:
+      tags: [projects]
+      operationId: listProjects
+      summary: List projects of the authenticated user
+      description: >
+        Returns only the projects owned by the authenticated user, paginated
+        with an opaque cursor.
+      security:
+        - oauth2: []
+        - bearerAuth: []
+      parameters:
+        - name: limit
+          in: query
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 100
+            default: 20
+        - name: cursor
+          in: query
+          description: Opaque cursor from a previous response
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Page of projects
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ProjectPage"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+
+  /projects/{projectId}:
+    get:
+      tags: [projects]
+      operationId: getProject
+      summary: Get a single project
+      security:
+        - oauth2: []
+        - bearerAuth: []
+      parameters:
+        - name: projectId
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        "200":
+          description: The project
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Project"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "404":
+          $ref: "#/components/responses/NotFound"
+
+components:
+  securitySchemes:
+    oauth2:
+      type: oauth2
+      description: >
+        OAuth 2.1 authorization code flow with PKCE, issued by the Michelangelo
+        identity provider. Third-party clients register via Dynamic Client
+        Registration — see the Authentication guide for the full flow.
+      flows:
+        authorizationCode:
+          authorizationUrl: https://hwtolnqskgrdgqpacdpi.supabase.co/auth/v1/oauth/authorize
+          tokenUrl: https://hwtolnqskgrdgqpacdpi.supabase.co/auth/v1/oauth/token
+          scopes: {}
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: JWT issued by the identity provider, validated by the API via JWKS
+
+  parameters:
+    JobId:
+      name: jobId
+      in: path
+      required: true
+      schema:
+        type: string
+        format: uuid
+
+  schemas:
+    Whoami:
+      type: object
+      required: [user_id, client_id]
+      properties:
+        user_id:
+          type: string
+          format: uuid
+        client_id:
+          type: string
+          description: OAuth client the token was issued to
+        scopes:
+          type: array
+          items:
+            type: string
+        rate_limit:
+          type: object
+          description: Current quota snapshot for this client (when available)
+          properties:
+            limit:
+              type: integer
+            remaining:
+              type: integer
+            reset_at:
+              type: string
+              format: date-time
+
+    CreateJobRequest:
+      type: object
+      required: [type, input]
+      properties:
+        type:
+          type: string
+          enum: [prompt]
+          description: Job kind. Only `prompt` in v0.1; grows with the runner catalog
+        project_id:
+          type: integer
+          format: int64
+          description: Numeric project id (matches public.projects.id)
+        input:
+          type: object
+          description: >
+            Job-specific payload (e.g. the prompt text and options). `model`
+            and `appName` are optional: when omitted the API evaluates the
+            prompt server-side and fills them in before the runner picks up
+            the job.
+          additionalProperties: true
+          properties:
+            prompt:
+              type: string
+            model:
+              type: string
+              enum: [sonnet, opus, k2-coding]
+              description: Runner model tier; server-enriched from prompt evaluation when absent
+            appName:
+              type: [string, "null"]
+              description: Generated app name (first generation only); server-enriched when absent
+
+    Job:
+      type: object
+      required: [id, type, status, created_at]
+      properties:
+        id:
+          type: string
+          format: uuid
+        type:
+          type: string
+        status:
+          type: string
+          enum: [queued, running, succeeded, failed, canceled]
+        project_id:
+          type: integer
+          format: int64
+          description: Numeric project id (matches public.projects.id), nullable
+        result:
+          type: object
+          additionalProperties: true
+          description: Output payload on success — contains `project_id` and `files_saved`
+        error:
+          $ref: "#/components/schemas/Error"
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+
+    Project:
+      type: object
+      required: [id, name, created_at]
+      properties:
+        id:
+          type: integer
+          format: int64
+          description: Numeric project id (matches public.projects.id)
+        name:
+          type: string
+        description:
+          type: string
+        icon_url:
+          type: string
+          format: uri
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+
+    ProjectPage:
+      type: object
+      required: [data]
+      properties:
+        data:
+          type: array
+          items:
+            $ref: "#/components/schemas/Project"
+        next_cursor:
+          type: ["string", "null"]
+
+    Error:
+      type: object
+      required: [code, message]
+      properties:
+        code:
+          type: string
+          description: Machine-readable error code (e.g. `job_not_found`)
+        message:
+          type: string
+          description: Human-readable detail
+        details:
+          type: object
+          additionalProperties: true
+
+  responses:
+    BadRequest:
+      description: Invalid request payload
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Error"
+    Unauthorized:
+      description: Missing, expired or invalid token
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Error"
+    NotFound:
+      description: Resource does not exist (or is not visible to this token)
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Error"
+    RateLimited:
+      description: Quota exceeded; retry after the indicated time
+      headers:
+        Retry-After:
+          schema:
+            type: integer
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Error"
