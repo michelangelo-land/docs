@@ -1,0 +1,84 @@
+---
+title: "MCP Server"
+description: "Connect Claude, Cursor, and other MCP-compatible agents to Michelangelo — they become clients of the platform with the user's OAuth token"
+---
+
+Michelangelo ships a **remote MCP server** — AI agents like Claude, Cursor, and any MCP-compatible client can connect directly and operate on the platform on behalf of a user: list projects, start AI generations, and wait for them to finish.
+
+```
+https://api.michelangelo.land/mcp
+```
+
+The server speaks **Streamable HTTP** (stateless) and implements the MCP authorization spec: when your client connects, it runs a standard **OAuth 2.1 + PKCE** flow automatically — Dynamic Client Registration, consent screen, token — with zero manual setup. No API keys to copy, nothing to install.
+
+<Info>
+  The MCP server is a pure client of the [public API](/v2/api/overview): every tool call goes through the same contract, the same per-user permissions (RLS), and the same server-side prompt evaluation. Anything the API can't do, MCP can't do either.
+</Info>
+
+## Connect your agent
+
+<Tabs>
+  <Tab title="Claude">
+    Add a custom MCP connector with the server URL:
+
+    ```
+    https://api.michelangelo.land/mcp
+    ```
+
+    On first use, a browser window opens the Michelangelo consent screen. Sign in, approve, and you're connected — Claude handles registration and tokens for you.
+  </Tab>
+  <Tab title="Cursor">
+    Add to your `mcp.json`:
+
+    ```json
+    {
+      "mcpServers": {
+        "michelangelo": {
+          "url": "https://api.michelangelo.land/mcp"
+        }
+      }
+    }
+    ```
+
+    Cursor starts the OAuth flow on first use: approve the consent screen once and the token is managed for you.
+  </Tab>
+  <Tab title="Other clients">
+    Any client implementing MCP Streamable HTTP + OAuth 2.1 (RFC 8414 / RFC 9728 discovery) works:
+
+    - Protected-resource metadata: `https://api.michelangelo.land/.well-known/oauth-protected-resource`
+    - Authorization-server metadata: `https://api.michelangelo.land/.well-known/oauth-authorization-server`
+    - Registration (DCR): `POST https://api.michelangelo.land/auth/v1/oauth/clients/register`
+
+    See [Authentication](/v2/api/authentication) for the full OAuth flow if you want to drive it manually.
+  </Tab>
+</Tabs>
+
+## Available tools
+
+| Tool | What it does |
+|---|---|
+| `whoami` | Identity behind the current token: user id, OAuth client id, scopes |
+| `list_projects` | The user's Michelangelo projects (paginated with `cursor`) |
+| `get_project` | A single project by numeric id |
+| `create_job` | Start an async AI generation on an **existing** project — the prompt is evaluated server-side before acceptance |
+| `get_job_status` | Point-in-time job status (`queued`, `running`, `succeeded`, `failed`) |
+| `wait_for_job` | Polls a job until it finishes or `maxWaitSeconds` (default 50, max 600) elapses — returns `done:false` with the current status if still running, so the agent can simply call again |
+
+`create_job` accepts an optional `model` tier — `light` (faster, cheaper, for simple changes) or `full` (deepest reasoning, for complex builds). The tiers are vendor-neutral: the concrete model behind each tier is a server-side detail that improves over time without breaking your integration. If omitted, server-side prompt evaluation assigns the tier.
+
+## A typical agent flow
+
+```
+list_projects                      → discover the user's projects
+create_job(projectId, prompt)      → 202, job queued (id returned)
+wait_for_job(jobId)                → polls until done:true or time budget ends
+  ↳ done:false? call again — the job keeps running server-side
+```
+
+Generations can take a long time (complex builds up to ~1 hour). `wait_for_job` never hangs forever: it waits up to your budget with exponential backoff, then hands control back with the current status. A `failed` job is a normal outcome, not a tool error — the agent reads `job.error` and can react (fix the prompt, retry).
+
+## Current limits
+
+- **Project creation is not available** via API/MCP yet — jobs run on projects the user already created in the Michelangelo app. `create_job` on a nonexistent project returns an error; use `list_projects` to discover valid ids.
+- **Prompt evaluation quota** applies to `create_job` (per-user, shared with the app). Exceeding it returns a `rate_limited` tool error with a `Retry-After` hint.
+- **Scopes**: tokens currently carry the `email` scope only; per-user RLS on the underlying data is what actually gates access.

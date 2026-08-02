@@ -105,6 +105,7 @@
               "/v2/api/authentication",
               "/v2/api/jobs",
               "/v2/api/examples",
+              "/v2/api/mcp-server",
               "GET /whoami",
               "POST /jobs",
               "GET /jobs/{jobId}",
