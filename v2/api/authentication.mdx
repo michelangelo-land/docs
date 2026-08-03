@@ -53,8 +53,12 @@ curl -X POST https://api.michelangelo.land/auth/v1/oauth/clients/register \
 The response contains your `client_id`. Public clients authenticate at the token endpoint with `token_endpoint_auth_method: "none"` plus PKCE — there is no client secret.
 
 <Warning>
-  `redirect_uri` validation uses **exact string matching, including the port**. The URI sent to `/oauth/authorize` and `/oauth/token` must match a registered URI byte-for-byte. Native apps using a loopback redirect (RFC 8252) must register the exact loopback URI with the exact port they will listen on.
+  `redirect_uri` validation uses **exact string matching, including the port**. The URI sent to `/oauth/authorize` and `/oauth/token` must match a registered URI byte-for-byte.
 </Warning>
+
+<Info>
+  **Native clients with loopback redirects** (RFC 8252 — MCP clients like Kimi Code or Claude Code listening on `http://127.0.0.1:<ephemeral-port>`) work **transparently**: the platform bridges ephemeral loopback ports through `api.michelangelo.land`, so you don't need to register fixed ports. Just register your loopback URI via DCR and use whatever port you listen on — the flow completes normally.
+</Info>
 
 ### 2. Build the authorization URL (PKCE S256)
 
