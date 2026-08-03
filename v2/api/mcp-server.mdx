@@ -58,7 +58,7 @@ The server speaks **Streamable HTTP** (stateless) and implements the MCP authori
 | Tool | What it does |
 |---|---|
 | `whoami` | Identity behind the current token: user id, OAuth client id, scopes |
-| `list_projects` | The user's Michelangelo projects (paginated with `cursor`) |
+| `list_projects` | The user's **own** Michelangelo projects (paginated with `cursor`); `visibility:'all'` also includes public community projects |
 | `get_project` | A single project by numeric id |
 | `create_job` | Start an async AI generation on an **existing** project — the prompt is evaluated server-side before acceptance |
 | `get_job_status` | Point-in-time job status (`queued`, `running`, `succeeded`, `failed`) |
