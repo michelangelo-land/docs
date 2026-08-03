@@ -115,9 +115,23 @@ A real response looks like:
 
 If `whoami` returns `200`, your OAuth flow works end to end.
 
+## Signing In on the Consent Screen
+
+When an OAuth flow sends you to Michelangelo's consent screen, sign in with **any method linked to your Michelangelo account**:
+
+- **Google** or **GitHub** — one click, the same providers as the app;
+- **Email code** — a 6-digit code sent to your account email. This works for *every* account, including **Sign in with Apple** users, who typically have no password;
+- **Email + password** — if you set one up.
+
+You don't create anything new: the consent screen signs into your existing Michelangelo account — the same one you use in the app.
+
+## Tokens for Personal Use and Scripts
+
+If you want to call the API yourself (scripts, curl, your own service), you don't copy a token from a settings page — you **run the same OAuth flow above with a client you register via DCR** (step 1). Register once with your own `redirect_uri` (a `http://localhost:PORT/callback` URI works for local scripts), complete the flow in your browser, and use the resulting `access_token` and `refresh_token`. The token identifies both you (`user_id`) and your client (`client_id`) — and it works with the [MCP server](/v2/api/mcp-server) too.
+
 ## First-Party Bearer Tokens
 
-The official Michelangelo app authenticates users directly and calls the API with the resulting session JWT (`Authorization: Bearer <session_jwt>`). These tokens are validated the same way (JWKS) but carry no `client_id`. If you are building on top of the official app's session rather than registering an OAuth client, this is the mode you are using — for anything public-facing, prefer the OAuth flow above.
+The official Michelangelo app authenticates users directly and calls the API with the resulting session JWT (`Authorization: Bearer <session_jwt>`). These tokens are validated the same way (JWKS) but carry no `client_id`. This mode is reserved for the official app — for anything else, including personal scripts, use the OAuth flow above.
 
 ## Errors
 
