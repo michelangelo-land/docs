@@ -37,7 +37,8 @@
               "/v2/michelangelo-app/github-integration",
               "/v2/michelangelo-app/share-app",
               "/v2/michelangelo-app/deploy-app",
-              "/v2/michelangelo-app/explore"
+              "/v2/michelangelo-app/explore",
+              "/v2/michelangelo-app/usage"
             ]
           },
           {
