@@ -14,59 +14,53 @@ To open it:
 
 The top section summarizes your total creative output:
 
-- **Lines of code generated** — total lines across all your `CODE` files.
-- **Code files created** — total number of `CODE` files across all your projects.
-- **Current streak** — consecutive days with at least one app generated. The streak stays alive as long as your last activity was today or yesterday.
-- **Best streak** — your longest run of consecutive active days.
-- **Most productive month** — the month with the most apps generated, shown as `Mon YYYY · N apps` (for example, `Aug 2026 · 12 apps`).
-- **Most active hour** — the hour of day when you create the most, shown in your device timezone (for example, `9 PM`).
+- **Lines of code generated** — all the code Michelangelo wrote for you.
+- **Code files created** — how many files that code lives in.
+- **Current streak** — how many days in a row you have created. It stays alive as long as you created something today or yesterday.
+- **Best streak** — your longest run of days in a row.
+- **Most productive month** — the month where you created the most apps.
+- **Most active hour** — the time of day when you usually create, shown in your local time.
 
-Tap the info icon next to a metric to see its definition directly in the app.
+Tap the info icon next to a metric to see its meaning directly in the app.
 
 ## Contributions
 
-The contributions calendar visualizes your activity day by day, GitHub-style:
+The contributions calendar shows your activity day by day:
 
 - Each square is one day.
-- The darker the square, the more apps you generated that day.
-- The calendar covers a rolling window of the last 12 months.
+- The darker the square, the more you created that day.
+- It covers the last 12 months.
 
 <Info>
-  Contributions are counted from **August 2026**.
+  The calendar starts from **August 2026**.
 </Info>
 
 ## This Month
 
-Your app generation activity for a specific month:
+Your activity for a specific month:
 
-- **Month / year selectors** — browse any month from the last 5 years.
-- **Apps generated** — new projects created in the selected month.
-- **AI generations** — every time the AI worked on one of your projects in the selected month, including edits to existing apps.
-- **Tokens used** — total AI tokens for the selected month (input + output + cache read + cache creation), abbreviated as `K` / `M` for large values.
+- **Month / year selectors** — look back at any recent month.
+- **Apps generated** — new apps you created that month.
+- **AI generations** — how many times the AI worked for you that month, including edits to apps you already had.
+- **Tokens used** — how much AI work went into your apps that month. Large numbers are shortened (for example, 1.2K or 3.4M).
 
 <Info>
-  AI generations and tokens are counted from **August 2026**. If there is no data for the selected month, the app shows `—`.
+  AI generations and tokens are available from **August 2026** onward. If there is nothing to show for a month, the app shows `—`.
 </Info>
 
 ## All Time
 
-Your total activity since you started:
+Your totals since you started:
 
-- **Apps generated** — total projects created.
-- **AI generations** — total AI runs across all your projects.
-- **Tokens used** — total AI tokens across all time.
+- **Apps generated** — all the apps you ever created.
+- **AI generations** — all the times the AI worked for you.
+- **Tokens used** — all the AI work behind your apps.
 
-## How Counting Works
+## Good to Know
 
-| Metric | What it counts |
-| ------ | -------------- |
-| Apps generated | New projects you created (`projects` table). Always available. |
-| AI generations | Every AI run on your projects, including follow-up edits (`usage_events` table). Counting started in August 2026. |
-| Tokens used | Sum of `input + output + cache read + cache creation` tokens from `usage_events`. Counting started in August 2026. |
-| Streaks | Days with at least one new project or AI run. Computed in your device timezone. |
-| Best month / peak hour | Aggregated from your project creation dates in your device timezone. |
-
-The screen refreshes automatically when you create apps or when the AI finishes work, and again when the app returns to the foreground.
+- Creating a new app and asking the AI to improve an existing one count differently: the first grows your app count, the second grows your AI generations.
+- Streaks, best month, and most active hour follow your local time.
+- Your stats update automatically as you build — just reopen the app to see the latest.
 
 ## Next Steps
 
