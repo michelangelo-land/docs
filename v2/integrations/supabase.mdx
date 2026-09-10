@@ -3,28 +3,68 @@ title: "Supabase Integration"
 description: "Connect your Michelangelo projects with Supabase"
 ---
 
-The planned Supabase integration will let you add a full backend to your Michelangelo projects without leaving the creation flow.
+The Supabase integration lets you give any Michelangelo app its own real backend, powered by your own Supabase project.
 
 ## What Supabase Adds
 
-Supabase provides managed databases, authentication, realtime updates, and storage. Connecting it to a Michelangelo project means your app can store data, manage users, and scale beyond the device.
+Supabase provides a managed database, authentication, and storage. Connecting it to a Michelangelo project means your app can store data, manage users, and scale beyond the device.
 
-## Envisioned Workflow
+## How It Works
 
-You will be able to describe backend needs in your prompt, such as:
+Every Michelangelo app links to one dedicated Supabase project. A Supabase project already backing another app cannot be selected again.
+
+You can connect in two places:
+
+**From Home, before the app exists:**
+
+1. Tap the `+` button in the prompt input.
+2. Choose **Supabase**.
+3. Tap **Add Supabase Account** and complete the sign-in in the browser.
+4. Select one of your Supabase projects from the picker.
+5. Describe your app, including its backend needs, and submit the prompt.
+
+**From App Settings, for an existing app:**
+
+1. Open a project in the editor.
+2. Tap the settings icon in the header.
+3. Go to **Supabase**.
+4. Tap **Add Supabase Account** if you have not connected yet.
+5. Tap **Select project** and choose one of your Supabase projects.
+
+In both cases, describe backend needs in plain language, such as:
 
 - "Save user profiles to a database."
 - "Let users sign up and log in."
 - "Show live updates when data changes."
 
-Michelangelo will generate the front-end code and connect it to your Supabase project.
+Michelangelo generates the front-end code, creates the required tables in your Supabase project, and wires the app to it.
 
-## Who It Is For
+## What You Get
 
-This integration is ideal for creators who want a production-ready backend without managing servers or writing backend code.
+- A complete app connected to your own Supabase project.
+- Database tables created for what you described.
+- Sign-in-ready code using your project URL and anonymous key.
+- Your data visible and manageable in the Supabase dashboard.
+
+## Managing the Connection
+
+Open **App Settings → Supabase** to see:
+
+- **Connected Account** — the Supabase account you signed in with.
+- **Project Database** — the Supabase project backing this app. Tap it to open the Supabase dashboard.
+- **Actions** — change the linked project with **Change project**, or remove it with **Unlink project**.
+
+Unlinking removes the link between the Michelangelo app and the Supabase project. It does not delete anything on Supabase.
+
+## If You Have No Projects Yet
+
+The picker helps you get set up without leaving the flow:
+
+- Tap **Create project** or **Add new project** to open the Supabase dashboard and create one, then come back to pick it.
+- Tap **Switch organization** to sign in again with a different Supabase organization.
 
 <Info>
-  The Supabase integration is in development. Early access will start with database and authentication support.
+  The Supabase integration is available today in the Michelangelo iOS app. If your connection expires or is revoked, reconnect your account from the picker.
 </Info>
 
 ## Next Steps
