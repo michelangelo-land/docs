@@ -6,7 +6,7 @@ Build, preview, and share Expo and React Native apps directly from your iPhone u
 
 ## Live docs
 
-Visit [docs.michelangelo.land](https://docs.michelangelo.land).
+Visit [docs.michelangelo.land](https://docs.michelangelo.land)
 
 ## What's inside
 
